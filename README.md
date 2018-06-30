@@ -12,7 +12,7 @@ Ramsay123 is a telegram bot, which interacts with users via customized keyboards
 
 1. Search for either name or username to add Ramsay123.
 2. Type `/start` to start the conversation.
-3. Key in amount intervals for differnt types of nutritions.
+3. Key in amount intervals for differnt types of nutrients.
 4. Click `Analyze` to get your dish recommendation!
 
 #### Telegram bot info

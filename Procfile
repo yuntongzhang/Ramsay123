@@ -1,1 +1,1 @@
-web: python3 ramsay.py
+web: python ramsay.py

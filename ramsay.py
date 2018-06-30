@@ -21,6 +21,7 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, Regex
 import logging
 import food_dict
 import random
+import os
 
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -112,9 +113,15 @@ def error(bot, update, error):
     logger.warning('Update "%s" caused error "%s"', update, error)
 
 def main():
+    # Set these variable to the appropriate values
+    TOKEN = "612484245:AAGQ9eC9YbUzB6LYipES9OAe_nCUP6YaKQs"
+    NAME = "ramsay123"
+
+    # Port is given by Heroku
+    PORT = os.environ.get('PORT')
+
     # Create the Updater and pass it your bot's token.
-    token = "612484245:AAGQ9eC9YbUzB6LYipES9OAe_nCUP6YaKQs"
-    updater = Updater(token)
+    updater = Updater(TOKEN)
 
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
@@ -148,8 +155,14 @@ def main():
     # log all errors
     dp.add_error_handler(error)
 
-    # Start the Bot
-    updater.start_polling()
+    # Start the Bot with polling. This is not used when deploying on heroku
+    # updater.start_polling()
+
+    # Start the webhook
+    updater.start_webhook(listen="0.0.0.0",
+                          port=int(PORT),
+                          url_path=TOKEN)
+    updater.bot.setWebhook("https://{}.herokuapp.com/{}".format(NAME, TOKEN))
 
     # Run the bot until you press Ctrl-C or the process receives SIGINT,
     # SIGTERM or SIGABRT. This should be used most of the time, since
